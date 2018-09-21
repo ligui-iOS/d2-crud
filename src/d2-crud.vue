@@ -681,6 +681,7 @@
         </el-row>
       </el-form>
       <div slot="footer">
+        <el-button v-show="formOptions.isShowDraftButton" @click="handleSaveDraft">保存草稿</el-button>
         <el-button
         :size="$d2CrudSize ? Object.assign({ saveButtonSize: $d2CrudSize}, formOptions) : null"
         :type="formOptions ? handleAttribute(formOptions.saveButtonType, null) : null"
@@ -688,7 +689,7 @@
         :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false"
         @click="handleDialogSave"
       >
-      确 定
+      {{formOptions.saveValue?formOptions.saveValue:'确 定'}}
       </el-button>
       </div>
     </el-dialog>

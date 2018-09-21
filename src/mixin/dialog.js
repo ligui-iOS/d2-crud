@@ -95,6 +95,35 @@ export default {
      */
     closeDialog () {
       this.showDialog = false
+    },
+    /**
+    *  @description 保存草稿
+    */
+    handleSaveDraft () {
+      this.$refs.form.validate((valid) => {
+        if (!valid) {
+          return false
+        }
+        const rowData = {}
+        if (this.formMode === 'edit') {
+          _forEach(this.formData, (value, key) => {
+            this._set(rowData, key, value)
+          })
+          this.$emit('row-edit-draft', {
+            index: this.editIndex,
+            row: rowData
+          }, () => {
+            this.handleDialogSaveDone(rowData)
+          })
+        } else if (this.formMode === 'add') {
+          _forEach(this.formData, (value, key) => {
+            this._set(rowData, key, value)
+          })
+          this.$emit('row-add-draft', rowData, () => {
+            this.handleDialogSaveDone(rowData)
+          })
+        }
+      })
     }
   }
 }
